@@ -31,6 +31,9 @@ def transition_func(grid, neighbourstates, neighbourcounts):
     grid[birth | survive] = 1
     return grid
 
+def birth(grid, neighbourcounts):
+    # unpack state counts for state 0 and state 1
+    dead_neighbours, live_neighbours = neighbourcounts
 
 def setup(args):
     config_path = args[0]
@@ -50,6 +53,13 @@ def setup(args):
     config.num_generations = 500
     config.grid_dims = (50,50)
 
+    # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
+    # Set all cells to 0 (chaparral)
+    grid_terrain = np.zeros(config.grid_dims)
+    grid_terrain[30:40, 15:25] = 1
+    grid_terrain[5:35, 32:35] = 2
+    grid_terrain[10:15, 5:15] = 3
+    config.set_initial_grid(grid_terrain)
     # ----------------------------------------------------------------------
 
     if len(args) == 2:
