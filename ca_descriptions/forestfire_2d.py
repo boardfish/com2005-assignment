@@ -16,7 +16,6 @@ from capyle.ca import Grid2D, Neighbourhood, CAConfig, randomise2d
 import capyle.utils as utils
 import numpy as np
 
-
 def transition_func(grid, neighbourstates, neighbourcounts):
     # dead = state == 0, live = state == 1
     # unpack state counts for state 0 and state 1
@@ -48,8 +47,8 @@ def setup(args):
     config.states = (0,1,2,3,4,5)
     config.state_colors = [(0.6,0.6,0.4),(0.25,0.6,0.3),(0.5,0.5,0.5),(0.1,0.1,0.9),(0.75,0.4,0.3),(0,0,0)]
 
-    # config.num_generations = 150
-    # config.grid_dims = (200,200)
+    config.num_generations = 500
+    config.grid_dims = (50,50)
 
     # ----------------------------------------------------------------------
 
