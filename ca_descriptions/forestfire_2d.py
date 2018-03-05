@@ -16,17 +16,18 @@ from capyle.ca import Grid2D, Neighbourhood, CAConfig, randomise2d
 import capyle.utils as utils
 import numpy as np
 
+# Initialise fuel grid
+grid_fuel = np.zeros((50,50))
+
 def transition_func(grid, neighbourstates, neighbourcounts):
     # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
     # unpack state counts for state 0 and state 1
     chaparral_neighbours, dense_forest_neighbours, canyon_neighbours, lake_neighbours, burning_neighbours, dead_neighbours = neighbourcounts
     live_neighbours = chaparral_neighbours + dense_forest_neighbours + canyon_neighbours + lake_neighbours
-    # create boolean arrays for the birth & survival rules
     burning = (burning_neighbours >= ignition(grid))
-    # if 2 or 3 burning neighbours and is burning -> continues to burn
-    still_burning = ((burning_neighbours == 2) | (burning_neighbours == 3)) & (grid == 4)
     # Set cells to 4 where cell is burning
     grid[burning] = 4
+    grid = fuel_use(grid)
     return grid
 
 def ignition(grid):
@@ -44,6 +45,16 @@ def ignition(grid):
             5: 9  # will not catch fire
             }
     return np.vectorize(FIRE_PROPAGATION_RATES.get)(grid)
+
+def fuel_use(grid):
+    global grid_fuel
+    # if it is burning, reduce it by 1
+    grid_fuel[(grid == 4)] -= 1
+    # if it's burning and 0, it's dead
+    grid[(grid == 4) & (grid_fuel == 0)] = 5
+    # if it's burning and -1, it's burning and has 10
+    grid_fuel[((grid == 4) & (grid_fuel == -1))] = 10
+    return grid
 
 def setup(args):
     config_path = args[0]
@@ -70,8 +81,14 @@ def setup(args):
     grid_terrain[5:35, 32:35] = 2
     grid_terrain[10:15, 5:15] = 3
     # Ignite ground at this location
-    # grid_terrain[19:24, 30:35] = 4
+    grid_terrain[19:24, 30:35] = 4
+
     config.set_initial_grid(grid_terrain)
+
+    global grid_fuel
+    # Initialise fuel grid
+    grid_fuel = np.zeros(config.grid_dims)
+    grid_fuel[(Grid2D(config, transition_func) == 4)] = 10
     # ----------------------------------------------------------------------
 
     if len(args) == 2:
