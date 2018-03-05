@@ -31,9 +31,20 @@ def transition_func(grid, neighbourstates, neighbourcounts):
     grid[birth | survive] = 1
     return grid
 
-def birth(grid, neighbourcounts):
-    # unpack state counts for state 0 and state 1
-    dead_neighbours, live_neighbours = neighbourcounts
+def birth(grid):
+    # Chaparral catches fire easily
+    # Lake will not catch fire
+    # Canyon ignites easily too
+    # dense forest, doesn't ignite easily
+    # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
+    FIRE_PROPAGATION_RATES = {
+            0: 1,
+            1: 4, 
+            2: 1,
+            3: 9, # will not catch fire
+            4: 0,
+            5: 9  # will not catch fire
+            }
 
 def setup(args):
     config_path = args[0]
