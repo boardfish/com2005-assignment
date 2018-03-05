@@ -17,21 +17,19 @@ import capyle.utils as utils
 import numpy as np
 
 def transition_func(grid, neighbourstates, neighbourcounts):
-    # dead = state == 0, live = state == 1
+    # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
     # unpack state counts for state 0 and state 1
-    dead_neighbours, live_neighbours = neighbourcounts
+    chaparral_neighbours, dense_forest_neighbours, canyon_neighbours, lake_neighbours, burning_neighbours, dead_neighbours = neighbourcounts
+    live_neighbours = chaparral_neighbours + dense_forest_neighbours + canyon_neighbours + lake_neighbours
     # create boolean arrays for the birth & survival rules
-    # if 3 live neighbours and is dead -> cell born
-    birth = (live_neighbours == 3) & (grid == 0)
-    # if 2 or 3 live neighbours and is alive -> survives
-    survive = ((live_neighbours == 2) | (live_neighbours == 3)) & (grid == 1)
-    # Set all cells to 0 (dead)
-    grid[:, :] = 0
-    # Set cells to 1 where either cell is born or survives
-    grid[birth | survive] = 1
+    burning = (burning_neighbours >= ignition(grid))
+    # if 2 or 3 burning neighbours and is burning -> continues to burn
+    still_burning = ((burning_neighbours == 2) | (burning_neighbours == 3)) & (grid == 4)
+    # Set cells to 4 where cell is burning
+    grid[burning] = 4
     return grid
 
-def birth(grid):
+def ignition(grid):
     # Chaparral catches fire easily
     # Lake will not catch fire
     # Canyon ignites easily too
@@ -45,6 +43,7 @@ def birth(grid):
             4: 0,
             5: 9  # will not catch fire
             }
+    return np.vectorize(FIRE_PROPAGATION_RATES.get)(grid)
 
 def setup(args):
     config_path = args[0]
@@ -70,6 +69,8 @@ def setup(args):
     grid_terrain[30:40, 15:25] = 1
     grid_terrain[5:35, 32:35] = 2
     grid_terrain[10:15, 5:15] = 3
+    # Ignite ground at this location
+    # grid_terrain[19:24, 30:35] = 4
     config.set_initial_grid(grid_terrain)
     # ----------------------------------------------------------------------
 
