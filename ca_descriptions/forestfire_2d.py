@@ -15,6 +15,7 @@ sys.path.append(main_dir_loc + 'capyle/guicomponents')
 from capyle.ca import Grid2D, Neighbourhood, CAConfig, randomise2d
 import capyle.utils as utils
 import numpy as np
+from random import randint as rand
 
 # Initialise fuel grid
 grid_fuel = np.zeros((50,50))
@@ -25,7 +26,7 @@ def transition_func(grid, neighbourstates, neighbourcounts):
     chaparral_neighbours, dense_forest_neighbours, canyon_neighbours, lake_neighbours, burning_neighbours, dead_neighbours = neighbourcounts
     live_neighbours = chaparral_neighbours + dense_forest_neighbours + canyon_neighbours + lake_neighbours
     burning = (burning_neighbours >= ignition(grid))
-    # Set cells to 4 where cell is burning
+    ## Set cells to 4 where cell is burning
     grid[burning] = 4
     grid = fuel_use(grid)
     return grid
@@ -37,11 +38,11 @@ def ignition(grid):
     # dense forest, doesn't ignite easily
     # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
     FIRE_PROPAGATION_RATES = {
-            0: 1,
-            1: 4, 
-            2: 1,
+            0: rand(1,3),
+            1: rand(3,5), 
+            2: rand(1,3),
             3: 9, # will not catch fire
-            4: 0,
+            4: rand(0,1),
             5: 9  # will not catch fire
             }
     return np.vectorize(FIRE_PROPAGATION_RATES.get)(grid)
@@ -69,7 +70,7 @@ def setup(args):
     # config.state_colors = [(0,0,0),(1,1,1)]
     config.states = (0,1,2,3,4,5)
     config.state_colors = [(0.6,0.6,0.4),(0.25,0.6,0.3),(0.5,0.5,0.5),(0.1,0.1,0.9),(0.75,0.4,0.3),(0,0,0)]
-    config.num_generations = 500
+    #config.num_generations = 500
     config.grid_dims = (50,50)
     config.wrap = False    
 
@@ -85,10 +86,21 @@ def setup(args):
     grid_terrain[0:1, 0:1] = 4
 
     config.set_initial_grid(grid_terrain)
-
+    d1, d2 = config.grid_dims
+    FUEL_CONSUMPTION_RATES = {
+            0: 96//3,
+            1: 720//3, 
+            2: 30//3,
+            3: 0, # will not catch fire
+            4: 0,
+            5: 0  # will not catch fire
+            }
     global grid_fuel
-    # Initialise fuel grid
-    grid_fuel = np.zeros(config.grid_dims)
+    grid_fuel = np.ceil(np.vectorize(FUEL_CONSUMPTION_RATES.get)(grid_terrain) * np.random.rand(d1,d2))
+    # Initialise fuel grid 
+    #grid_fuel = np.ceil(np.random.rand(d1, d2) * 10) 
+    #grid_fuel = np.zeros(config.grid_dims)
+    #grid_fuel[30:40, 15:25] = np.ceil(np.random.rand(10,10) * 100)
     # ----------------------------------------------------------------------
 
     if len(args) == 2:
