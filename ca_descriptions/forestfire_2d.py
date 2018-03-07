@@ -80,15 +80,16 @@ def setup(args):
     grid_terrain[30:40, 15:25] = 1
     grid_terrain[5:35, 32:35] = 2
     grid_terrain[10:15, 5:15] = 3
-    # Ignite ground at this location
-    grid_terrain[19:24, 30:35] = 4
+    # Ignite ground at incinerator
+    grid_terrain[0:1, 49:50] = 4
+    # Ignite ground at power plant
+    grid_terrain[0:1, 0:1] = 4
 
     config.set_initial_grid(grid_terrain)
 
     global grid_fuel
     # Initialise fuel grid
     grid_fuel = np.zeros(config.grid_dims)
-    grid_fuel[(Grid2D(config, transition_func) == 4)] = 10
     # ----------------------------------------------------------------------
 
     if len(args) == 2:
@@ -104,6 +105,7 @@ def main():
 
     # Create grid object
     grid = Grid2D(config, transition_func)
+    grid_fuel[(grid == 4)] = 10
 
     # Run the CA, save grid state every generation to timeline
     timeline = grid.run()
