@@ -73,6 +73,7 @@ def setup(args):
 
     config.num_generations = 500
     config.grid_dims = (50,50)
+    config.wrap = False    
 
     # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
     # Set all cells to 0 (chaparral)
@@ -81,7 +82,7 @@ def setup(args):
     grid_terrain[5:35, 32:35] = 2
     grid_terrain[10:15, 5:15] = 3
     # Ignite ground at incinerator
-    grid_terrain[0:1, 49:50] = 4
+    #grid_terrain[0:1, 49:50] = 4
     # Ignite ground at power plant
     grid_terrain[0:1, 0:1] = 4
 
