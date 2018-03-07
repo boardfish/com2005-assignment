@@ -81,9 +81,9 @@ def setup(args):
     grid_terrain[5:35, 32:35] = 2
     grid_terrain[10:15, 5:15] = 3
     # Ignite ground at incinerator
-    grid_terrain[0:1, 49:50] = 4
+    grid_terrain[0, 49] = 4
     # Ignite ground at power plant
-    grid_terrain[0:1, 0:1] = 4
+    grid_terrain[0, 0] = 4
 
     config.set_initial_grid(grid_terrain)
 
