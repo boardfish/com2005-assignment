@@ -73,6 +73,7 @@ def setup(args):
 
     config.num_generations = 500
     config.grid_dims = (50,50)
+    config.wrap = False    
 
     # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
     # Set all cells to 0 (chaparral)
