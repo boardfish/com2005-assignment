@@ -19,13 +19,16 @@ from random import randint as rand
 
 # Initialise fuel grid
 grid_fuel = np.zeros((50,50))
+grid_burn_chance = np.zeros((50,50))
+BURN_THRESHOLD = 4
 
 def transition_func(grid, neighbourstates, neighbourcounts):
     # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
     # unpack state counts for state 0 and state 1
     chaparral_neighbours, dense_forest_neighbours, canyon_neighbours, lake_neighbours, burning_neighbours, dead_neighbours = neighbourcounts
     live_neighbours = chaparral_neighbours + dense_forest_neighbours + canyon_neighbours + lake_neighbours
-    burning = (burning_neighbours >= ignition(grid))
+    burning = ((grid_burn_chance >= BURN_THRESHOLD) & (burning_neighbours >= ignition(grid)))
+    print(grid_burn_chance)
     ## Set cells to 4 where cell is burning
     grid[burning] = 4
     grid = fuel_use(grid)
@@ -37,15 +40,16 @@ def ignition(grid):
     # Canyon ignites easily too
     # dense forest, doesn't ignite easily
     # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
-    FIRE_PROPAGATION_RATES = {
-            0: rand(1,3),
-            1: rand(3,5), 
-            2: rand(1,3),
-            3: 9, # will not catch fire
-            4: rand(0,1),
-            5: 9  # will not catch fire
-            }
-    return np.vectorize(FIRE_PROPAGATION_RATES.get)(grid)
+    MIN_NEIGHBORS = {
+           0: 1,
+           1: 3, 
+           2: 1,
+           3: 9, # will not catch fire
+           4: 0,
+           5: 9  # will not catch fire
+           }   
+    return np.vectorize(MIN_NEIGHBORS.get)(grid)
+    
 
 def fuel_use(grid):
     global grid_fuel
@@ -81,7 +85,7 @@ def setup(args):
     grid_terrain[5:35, 32:35] = 2
     grid_terrain[10:15, 5:15] = 3
     # Ignite ground at incinerator
-    grid_terrain[0, 49] = 4
+    # grid_terrain[0, 49] = 4
     # Ignite ground at power plant
     grid_terrain[0, 0] = 4
 
@@ -102,6 +106,17 @@ def setup(args):
     #grid_fuel = np.zeros(config.grid_dims)
     #grid_fuel[30:40, 15:25] = np.ceil(np.random.rand(10,10) * 100)
     # ----------------------------------------------------------------------
+
+    FIRE_PROPAGATION_RATES = {
+            0: rand(6,8),
+            1: rand(4,6), 
+            2: rand(7,8),
+            3: 0, # will not catch fire
+            4: rand(8,9),
+            5: 0  # will not catch fire
+            }
+    global grid_burn_chance
+    grid_burn_chance = np.ceil(np.vectorize(FIRE_PROPAGATION_RATES.get)(grid_terrain) * np.random.rand(d1,d2))
 
     if len(args) == 2:
         config.save()
