@@ -108,9 +108,9 @@ def setup(args):
     # ----------------------------------------------------------------------
 
     FIRE_PROPAGATION_RATES = {
-            0: rand(6,8),
-            1: rand(4,6), 
-            2: rand(7,8),
+            0: rand(12,18),
+            1: rand(6,10), 
+            2: rand(14,20),
             3: 0, # will not catch fire
             4: rand(8,9),
             5: 0  # will not catch fire
