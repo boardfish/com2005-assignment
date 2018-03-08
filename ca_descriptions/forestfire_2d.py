@@ -21,18 +21,25 @@ from random import randint as rand
 grid_fuel = np.zeros((50,50))
 grid_burn_chance = np.zeros((50,50))
 BURN_THRESHOLD = 4
+WIND_DIR = 5
+WIND_SPEED = 10
 
 def transition_func(grid, neighbourstates, neighbourcounts):
     # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
     # unpack state counts for state 0 and state 1
+    #print(neighbourstates[1][1])
     chaparral_neighbours, dense_forest_neighbours, canyon_neighbours, lake_neighbours, burning_neighbours, dead_neighbours = neighbourcounts
     live_neighbours = chaparral_neighbours + dense_forest_neighbours + canyon_neighbours + lake_neighbours
+    wind_speed(grid_burn_chance, neighbourstates)
     burning = ((grid_burn_chance >= BURN_THRESHOLD) & (burning_neighbours >= ignition(grid)))
-    print(grid_burn_chance)
     ## Set cells to 4 where cell is burning
     grid[burning] = 4
     grid = fuel_use(grid)
     return grid
+
+def wind_speed(grid_burn_chance, neighbourstates):
+    for i,val in enumerate(neighbourstates):
+        print(i, val)
 
 def ignition(grid):
     # Chaparral catches fire easily
