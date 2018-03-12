@@ -3,7 +3,7 @@ title: Applications of Cellular Automata - Visualising Forest Fires
 author:
 - Simon Fish
 - Jack Barradell-Johns
-- Martin Kabyamela
+- Martin Kabyemela
 ---
 
 # Abstract
@@ -16,9 +16,21 @@ Using the simulation we were able to predict and select solutions to several pro
 
 # Introduction and Background (Literature Review)
 
+In this investigation, we focus on the spread and speed of a forest fire. USA recorded over 66,000 wildfires in the year 2017. (National Centers for Enviromental Information, n.d.) A sufficiently accurate model of potential forest fires can help us take preventative measures that prevent spread of these fires. As well as, help us find the most effective locations for short-term intervention.
+Physical environment like forest/land terrain are often hard to simulate as they involve many inter-connecting variables. From shape, size of forest, the terrain, temperature and weather etc. Then we take into account unpredictability to fires, any model we create would require intensive computation that still may not be sufficiently accurate.
+
+A cellular automata consists of a cell space where each cell has a certain state. The state of a cell at any point is time based of neighbouring cells governed by transition rules.
+CA (Cellular Automata) algorithms are exceptionally effective at modelling systems where local interaction are important.
+![Cellular Automata](img/CellularAutomata,png)
+This makes using a CA algorithm to model forest fire behaviour potentially attractive. Furthermore, it provides a simple model to quite a complex systems.
+CA-based models has been used before model in other real world systems. The University of Exeter used CA-based models to simulate sewer system to better combat the effect of floods. In their journal article “Quick and accurate Cellular Automata sewer simulator” (Rebecca J. Austin, 2014)2 they investigates if CA-based system could accurately model a sewer system when compared to traditional, more computational intensive models. To model the sewer system, a state represented manhole, each of which contain certain number of figurative water blocks. Movement between manholes was dependent on relative depth and current water level in the cell. This model, as well as the traditional models (SWMM5 and SIPSON) was used to simulate a sewer network in Keighley, Yorkshire. The CA-based model showed similar results to the SWMM5 and SIPSON models, being sufficiently accurate to model sewer system. A notable difference here was that the CA-based model was significantly faster than SWMM5 and SIPSON. With the paper stating that the time saved in simulation time would even more significant in larger network simulations.
+A research team at Geoinformation and Land management in Morocco attempted to model forest fires in Morocco, highlighting the challenges faced in their journal article. The journal “Forest fire modelling using cellular automata” (Jellouli, et al., 2016), acknowledges that there are many parameters at play, that affect the fire spread. This group decided that the transition rules would be based of these 5 parameters; vegetation, humidity, wind direction, wind power and altitude. This enable them to simulate a terrain in Morocco, Oued Laou, and identity areas of fire spread easily compared to areas with fire spread is weak. The information from this research was sufficient to contribute to proposed approaches to combat forest fires in the region.
+As shown, CA-based systems are very capable to simulating these complex real world systems
+
+
 # Materials and Methods
 
-We were provided with the engine for Conway's Game of Life in [capyle](https://github.com/pjworsley/capyle), an open source program designed for the representation of celllular automata. We were able to extend this in various ways, initially increasing the number of states in the system. Conway's Game of Life determines whether cells are born, killed, or survive based on the number of living neighbours that surround them. Our simulation of the fire spread works on a similar basis, but clearly needed to take many more factors into account to become a useful model. For this, as mentioned in the abstract, we created states for each type of land represented in the specification - 
+We were provided with the engine for Conway's Game of Life in [capyle](https://github.com/pjworsley/capyle), an open source program designed for the representation of celllular automata. We were able to extend this in various ways, initially increasing the number of states in the system. Conway's Game of Life determines whether cells are born, killed, or survive based on the number of living neighbours that surround them. Our simulation of the fire spread works on a similar basis, but clearly needed to take many more factors into account to become a useful model. For this, as mentioned in the abstract, we created states for each type of land represented in the specification -
 
 | Land type         | Flammability  | Fuel            |
 | ----------------- |:-------------:|:---------------:|
@@ -35,15 +47,15 @@ Flammabiility was then represented by a threshold, which was based on the number
 
 Wind was the last aspect to be implemented. This added another calculation layer that used another of our assumptions - the chance of a cell catching fire is weighted based on the wind direction and and proportionally to the square root of its speed. It was most important to ensure that simulations were accurate for the prevailing wind direction (south), but that the calculations could also be accurately applicable to any wind direction. In the code, the directions are represented as follows:
 
-------- ------- ------- 
+------- ------- -------
    0       1       2
    3               4
    5       6       7
-------- ------- ------- 
+------- ------- -------
 
 Table: the cardinal directions mapped to the range 0 to 7 inclusive.
 
-The `WIND_SPEED` in km/h and `WIND_DIRECTION` are defined as constants before the simulation is run. 
+The `WIND_SPEED` in km/h and `WIND_DIRECTION` are defined as constants before the simulation is run.
 
 # Results
 
@@ -122,3 +134,7 @@ The conclusions for each scenario have been addressed in the discussion section 
 
 
 # References
+
+Jellouli, O., Bernoussi, A., Mâatouk, M. & Amharref, M., 2016. Forest fire modelling using cellular automata: application to the watershed Oued Laou (Morocco). Mathematical and Computer Modelling of Dynamical Systems, 22(5). - Available at: http://jh.iwaponline.com/content/16/6/1359
+National Centers for Enviromental Information, n.d. [Online], available at: https://www.ncdc.noaa.gov/sotc/fire/201713
+Rebecca J. Austin, A. S. C. D. A. S. S. D., 2014. Quick and accurate Cellular Automata sewer simulator. Journal of Hydroinformatics. - Avaialble at: https://www.tandfonline.com/doi/full/10.1080/13873954.2016.1204321
