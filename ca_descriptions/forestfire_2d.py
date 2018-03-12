@@ -22,7 +22,7 @@ grid_fuel = np.zeros((50,50))
 grid_burn_chance = np.zeros((50,50))
 BURN_THRESHOLD = 4
 WIND_DIRECTION = 6
-WIND_SPEED = 10
+WIND_SPEED = 20
 BASE_IGNITION_RATE = 1
 
 def transition_func(grid, neighbourstates, neighbourcounts):
@@ -53,7 +53,17 @@ def wind_speed(grid_burn_chance):
     for row in range(len(grid_burn_chance)):
         for cell in range(row):
             for (x,y) in WIND_DIRECTION_INDICES[WIND_DIRECTION]:
-                grid_burn_chance[y][x] += WIND_SPEED * BASE_IGNITION_RATE
+                print(row+y, cell+x)
+                y_boundary = row+y >= len(grid_burn_chance)-1
+                x_boundary = cell+x >= row-1
+                if not (y_boundary or x_boundary):
+                    grid_burn_chance[row+y][cell+x] += WIND_SPEED * BASE_IGNITION_RATE
+            for (x,y) in WIND_DIRECTION_INDICES[abs(WIND_DIRECTION - 7)]:
+                print(row+y, cell+x)
+                y_boundary = row+y >= len(grid_burn_chance)-1
+                x_boundary = cell+x >= row-1
+                if not (y_boundary or x_boundary):
+                    grid_burn_chance[row+y][cell+x] -= WIND_SPEED * BASE_IGNITION_RATE
                  
 
 
