@@ -22,14 +22,12 @@ grid_fuel = np.zeros((50,50))
 grid_burn_chance = np.zeros((50,50))
 grid_terrain = np.zeros((50,50))
 BURN_THRESHOLD = 8
-WIND_DIRECTION = 2
+WIND_DIRECTION = 6
 WIND_SPEED = 60
-BASE_IGNITION_RATE = 1
+BASE_IGNITION_RATE = 1.5
 
 def transition_func(grid, neighbourstates, neighbourcounts):
     # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
-    # unpack state counts for state 0 and state 1
-    #print(neighbourstates[1][1])
     chaparral_neighbours, dense_forest_neighbours, canyon_neighbours, lake_neighbours, burning_neighbours, dead_neighbours = neighbourcounts
     live_neighbours = chaparral_neighbours + dense_forest_neighbours + canyon_neighbours + lake_neighbours
     burn_chance()
@@ -38,37 +36,29 @@ def transition_func(grid, neighbourstates, neighbourcounts):
     ## Set cells to 4 where cell is burning
     grid[burning] = 4
     grid = fuel_use(grid)
-    #grid_burn_chance[(burning == False)] = 0
-    #grid_burn_chance[burning] = wind_speed(grid_burn_chance[burning])
     return grid
 
 def wind(grid_burn_chance, grid):
     WIND_DIRECTION_INDICES = {
-        0: [(-1,0), (-1,1), (0,1)],
-        1: [(-1,1), (0,1), (1,1)],
-        2: [(0,1), (1,1), (1,0)],
-        3: [(-1,1), (-1,0), (-1,-1)],
+        0: [(-1,0), (-1,-1), (0,-1)],
+        1: [(-1,-1), (-1,0), (-1,1)],
+        2: [(-1,0), (-1,1), (0,1)],
+        3: [(-1,-1), (0,-1), (1,-1)],
 
-        4: [(1,1), (1,0), (1,-1)],
-        5: [(-1,0), (-1,-1), (0,-1)],
-        6: [(-1,-1), (0,-1), (1,-1)],
-        7: [(1,0), (1,-1), (0,-1)]
+        4: [(-1,1), (0,1), (1,1)],
+        5: [(0,-1), (1,-1), (1,0)],
+        6: [(1,-1), (1,0), (1,1)],
+        7: [(0,1), (1,1), (1,0)]
     }
     for row in range(len(grid_burn_chance)):
         for cell in range(row):
-            for (x,y) in WIND_DIRECTION_INDICES[WIND_DIRECTION]:
+            for (y,x) in WIND_DIRECTION_INDICES[WIND_DIRECTION]:
               if grid[row][cell] == 4:    
                   y_boundary = ((row+y) > (len(grid_burn_chance)-1)) or ((row+y) < 0)
                   x_boundary = ((cell+x) > (len(grid_burn_chance)-1)) or ((cell+x) < 0)
                   if not (y_boundary or x_boundary):
-                      #print(y_boundary, x_boundary, (row+y < 0), (cell+x < 0))
-                      #print("grid_burn_chance[{}][{}]".format(row+y, cell+x))
-                      #print(grid_burn_chance[row+y][cell+x])
-                      #print("Row {} Col {} x {} y {}".format(row, cell, x, y))
-                      #print("Change {}".format(WIND_SPEED * BASE_IGNITION_RATE / 100))                    
                       grid_burn_chance[row+y][cell+x] += WIND_SPEED * BASE_IGNITION_RATE / 10
-                      #print(grid_burn_chance[row+y][cell+x])
-            for (x,y) in WIND_DIRECTION_INDICES[abs(WIND_DIRECTION - 7)]:
+            for (y,x) in WIND_DIRECTION_INDICES[abs(WIND_DIRECTION - 7)]:
               if grid[row][cell] == 4:     
                   #y_boundary = row+y >= len(grid_burn_chance)-1
                   #x_boundary = cell+x >= row-1
@@ -76,38 +66,6 @@ def wind(grid_burn_chance, grid):
                   x_boundary = ((cell+x) > (len(grid_burn_chance)-1)) or ((cell+x) < 0)
                   if not (y_boundary or x_boundary):
                     grid_burn_chance[row+y][cell+x] -= WIND_SPEED * BASE_IGNITION_RATE / 10
-                    #print("Change {}".format(WIND_SPEED * BASE_IGNITION_RATE / 10))                    
-
-def wind_speed(grid_burn_chance):
-    WIND_DIRECTION_INDICES = {
-        0: [(-1,0), (-1,1), (0,1)],
-        1: [(-1,1), (0,1), (1,1)],
-        2: [(0,1), (1,1), (1,0)],
-        3: [(-1,1), (-1,0), (-1,-1)],
-
-        4: [(1,1), (1,0), (1,-1)],
-        5: [(-1,0), (-1,-1), (0,-1)],
-        6: [(-1,-1), (0,-1), (1,-1)],
-        7: [(1,0), (1,-1), (0,-1)]
-    }
-    for row in range(len(grid_burn_chance)):
-        for cell in range(row):
-            for (x,y) in WIND_DIRECTION_INDICES[WIND_DIRECTION]:
-                y_boundary = ((row+y) > (len(grid_burn_chance))) or ((row+y) < 0)
-                x_boundary = ((cell+x) > (row-1)) or ((cell+x) < 0)
-                if not (y_boundary or x_boundary):
-                    print(y_boundary, x_boundary, (row+y < 0), (cell+x < 0))
-                    print("grid_burn_chance[{}][{}]".format(row+y, cell+x))
-                    print(grid_burn_chance[row+y][cell+x])
-                    grid_burn_chance[row+y][cell+x] += WIND_SPEED * BASE_IGNITION_RATE
-                    print(grid_burn_chance[row+y][cell+x])
-            for (x,y) in WIND_DIRECTION_INDICES[abs(WIND_DIRECTION - 7)]:
-                y_boundary = row+y >= len(grid_burn_chance)-1
-                x_boundary = cell+x >= row-1
-                if not (y_boundary or x_boundary):
-                    grid_burn_chance[row+y][cell+x] -= WIND_SPEED * BASE_IGNITION_RATE
-                 
-
 
 def ignition(grid):
     # Chaparral catches fire easily
@@ -137,7 +95,7 @@ def fuel_use(grid):
 
 def burn_chance():
   FIRE_PROPAGATION_RATES = {
-            0: rand(12,18),
+            0: rand(14,18),
             1: rand(8,10), 
             2: rand(16,20),
             3: 0, # will not catch fire
