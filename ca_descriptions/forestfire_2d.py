@@ -20,9 +20,10 @@ from random import randint as rand
 # Initialise fuel grid
 grid_fuel = np.zeros((50,50))
 grid_burn_chance = np.zeros((50,50))
-BURN_THRESHOLD = 4
-WIND_DIRECTION = 6
-WIND_SPEED = 20
+grid_terrain = np.zeros((50,50))
+BURN_THRESHOLD = 8
+WIND_DIRECTION = 2
+WIND_SPEED = 60
 BASE_IGNITION_RATE = 1
 
 def transition_func(grid, neighbourstates, neighbourcounts):
@@ -31,12 +32,51 @@ def transition_func(grid, neighbourstates, neighbourcounts):
     #print(neighbourstates[1][1])
     chaparral_neighbours, dense_forest_neighbours, canyon_neighbours, lake_neighbours, burning_neighbours, dead_neighbours = neighbourcounts
     live_neighbours = chaparral_neighbours + dense_forest_neighbours + canyon_neighbours + lake_neighbours
-    wind_speed(grid_burn_chance)
+    burn_chance()
+    wind(grid_burn_chance, grid)
     burning = ((grid_burn_chance >= BURN_THRESHOLD) & (burning_neighbours >= ignition(grid)))
     ## Set cells to 4 where cell is burning
     grid[burning] = 4
     grid = fuel_use(grid)
+    #grid_burn_chance[(burning == False)] = 0
+    #grid_burn_chance[burning] = wind_speed(grid_burn_chance[burning])
     return grid
+
+def wind(grid_burn_chance, grid):
+    WIND_DIRECTION_INDICES = {
+        0: [(-1,0), (-1,1), (0,1)],
+        1: [(-1,1), (0,1), (1,1)],
+        2: [(0,1), (1,1), (1,0)],
+        3: [(-1,1), (-1,0), (-1,-1)],
+
+        4: [(1,1), (1,0), (1,-1)],
+        5: [(-1,0), (-1,-1), (0,-1)],
+        6: [(-1,-1), (0,-1), (1,-1)],
+        7: [(1,0), (1,-1), (0,-1)]
+    }
+    for row in range(len(grid_burn_chance)):
+        for cell in range(row):
+            for (x,y) in WIND_DIRECTION_INDICES[WIND_DIRECTION]:
+              if grid[row][cell] == 4:    
+                  y_boundary = ((row+y) > (len(grid_burn_chance)-1)) or ((row+y) < 0)
+                  x_boundary = ((cell+x) > (len(grid_burn_chance)-1)) or ((cell+x) < 0)
+                  if not (y_boundary or x_boundary):
+                      #print(y_boundary, x_boundary, (row+y < 0), (cell+x < 0))
+                      #print("grid_burn_chance[{}][{}]".format(row+y, cell+x))
+                      #print(grid_burn_chance[row+y][cell+x])
+                      #print("Row {} Col {} x {} y {}".format(row, cell, x, y))
+                      #print("Change {}".format(WIND_SPEED * BASE_IGNITION_RATE / 100))                    
+                      grid_burn_chance[row+y][cell+x] += WIND_SPEED * BASE_IGNITION_RATE / 10
+                      #print(grid_burn_chance[row+y][cell+x])
+            for (x,y) in WIND_DIRECTION_INDICES[abs(WIND_DIRECTION - 7)]:
+              if grid[row][cell] == 4:     
+                  #y_boundary = row+y >= len(grid_burn_chance)-1
+                  #x_boundary = cell+x >= row-1
+                  y_boundary = ((row+y) > (len(grid_burn_chance)-1)) or ((row+y) < 0)
+                  x_boundary = ((cell+x) > (len(grid_burn_chance)-1)) or ((cell+x) < 0)
+                  if not (y_boundary or x_boundary):
+                    grid_burn_chance[row+y][cell+x] -= WIND_SPEED * BASE_IGNITION_RATE / 10
+                    #print("Change {}".format(WIND_SPEED * BASE_IGNITION_RATE / 10))                    
 
 def wind_speed(grid_burn_chance):
     WIND_DIRECTION_INDICES = {
@@ -53,13 +93,15 @@ def wind_speed(grid_burn_chance):
     for row in range(len(grid_burn_chance)):
         for cell in range(row):
             for (x,y) in WIND_DIRECTION_INDICES[WIND_DIRECTION]:
-                print(row+y, cell+x)
-                y_boundary = row+y >= len(grid_burn_chance)-1
-                x_boundary = cell+x >= row-1
+                y_boundary = ((row+y) > (len(grid_burn_chance))) or ((row+y) < 0)
+                x_boundary = ((cell+x) > (row-1)) or ((cell+x) < 0)
                 if not (y_boundary or x_boundary):
+                    print(y_boundary, x_boundary, (row+y < 0), (cell+x < 0))
+                    print("grid_burn_chance[{}][{}]".format(row+y, cell+x))
+                    print(grid_burn_chance[row+y][cell+x])
                     grid_burn_chance[row+y][cell+x] += WIND_SPEED * BASE_IGNITION_RATE
+                    print(grid_burn_chance[row+y][cell+x])
             for (x,y) in WIND_DIRECTION_INDICES[abs(WIND_DIRECTION - 7)]:
-                print(row+y, cell+x)
                 y_boundary = row+y >= len(grid_burn_chance)-1
                 x_boundary = cell+x >= row-1
                 if not (y_boundary or x_boundary):
@@ -88,10 +130,22 @@ def fuel_use(grid):
     # if it is burning, reduce it by 1
     grid_fuel[(grid == 4)] -= 1
     # if it's burning and 0, it's dead
-    grid[(grid == 4) & (grid_fuel == 0)] = 5
+    grid[(grid == 4) & (grid_fuel <= 0)] = 5
     # if it's burning and -1, it's burning and has 10
-    grid_fuel[((grid == 4) & (grid_fuel == -1))] = 10
+    #grid_fuel[((grid == 4) & (grid_fuel == -1))] = 10
     return grid
+
+def burn_chance():
+  FIRE_PROPAGATION_RATES = {
+            0: rand(12,18),
+            1: rand(8,10), 
+            2: rand(16,20),
+            3: 0, # will not catch fire
+            4: rand(8,9),
+            5: 0  # will not catch fire
+            }
+  global grid_burn_chance
+  grid_burn_chance = np.ceil(np.vectorize(FIRE_PROPAGATION_RATES.get)(grid_terrain) * np.random.rand(50,50))
 
 def setup(args):
     config_path = args[0]
@@ -112,6 +166,7 @@ def setup(args):
 
     # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
     # Set all cells to 0 (chaparral)
+    global grid_terrain
     grid_terrain = np.zeros(config.grid_dims)
     grid_terrain[30:40, 15:25] = 1
     grid_terrain[5:35, 32:35] = 2
@@ -124,9 +179,9 @@ def setup(args):
     config.set_initial_grid(grid_terrain)
     d1, d2 = config.grid_dims
     FUEL_CONSUMPTION_RATES = {
-            0: 96//3,
-            1: 720//3, 
-            2: 30//3,
+            0: 40,
+            1: 224, 
+            2: 5,
             3: 0, # will not catch fire
             4: 0,
             5: 0  # will not catch fire
@@ -139,16 +194,17 @@ def setup(args):
     #grid_fuel[30:40, 15:25] = np.ceil(np.random.rand(10,10) * 100)
     # ----------------------------------------------------------------------
 
-    FIRE_PROPAGATION_RATES = {
-            0: rand(12,18),
-            1: rand(6,10), 
-            2: rand(14,20),
-            3: 0, # will not catch fire
-            4: rand(8,9),
-            5: 0  # will not catch fire
-            }
-    global grid_burn_chance
-    grid_burn_chance = np.ceil(np.vectorize(FIRE_PROPAGATION_RATES.get)(grid_terrain) * np.random.rand(d1,d2))
+    #FIRE_PROPAGATION_RATES = {
+    #        0: rand(16,18),
+    #        1: rand(8,10), 
+    #        2: rand(45,50),
+    #        3: 0, # will not catch fire
+    #        4: rand(8,9),
+    #        5: 0  # will not catch fire
+    #        }
+    #global grid_burn_chance
+    #grid_burn_chance = np.ceil(np.vectorize(FIRE_PROPAGATION_RATES.get)(grid_terrain) * np.random.rand(d1,d2))
+    burn_chance()
 
     if len(args) == 2:
         config.save()
@@ -158,6 +214,7 @@ def setup(args):
 
 
 def main():
+    print("----------------------------------------")
     # Open the config object
     config = setup(sys.argv[1:])
 
