@@ -36,6 +36,8 @@ def transition_func(grid, neighbourstates, neighbourcounts):
     ## Set cells to 4 where cell is burning
     grid[burning] = 4
     grid = fuel_use(grid)
+    grid_burn_chance[(burning == False)] = 0
+    grid_burn_chance[burning] = wind_speed(grid_burn_chance[burning])
     return grid
 
 def wind_speed(grid_burn_chance):
@@ -53,13 +55,15 @@ def wind_speed(grid_burn_chance):
     for row in range(len(grid_burn_chance)):
         for cell in range(row):
             for (x,y) in WIND_DIRECTION_INDICES[WIND_DIRECTION]:
-                print(row+y, cell+x)
-                y_boundary = row+y >= len(grid_burn_chance)-1
-                x_boundary = cell+x >= row-1
+                y_boundary = ((row+y) > (len(grid_burn_chance))) or ((row+y) < 0)
+                x_boundary = ((cell+x) > (row-1)) or ((cell+x) < 0)
                 if not (y_boundary or x_boundary):
+                    print(y_boundary, x_boundary, (row+y < 0), (cell+x < 0))
+                    print("grid_burn_chance[{}][{}]".format(row+y, cell+x))
+                    print(grid_burn_chance[row+y][cell+x])
                     grid_burn_chance[row+y][cell+x] += WIND_SPEED * BASE_IGNITION_RATE
+                    print(grid_burn_chance[row+y][cell+x])
             for (x,y) in WIND_DIRECTION_INDICES[abs(WIND_DIRECTION - 7)]:
-                print(row+y, cell+x)
                 y_boundary = row+y >= len(grid_burn_chance)-1
                 x_boundary = cell+x >= row-1
                 if not (y_boundary or x_boundary):
