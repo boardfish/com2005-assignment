@@ -21,8 +21,9 @@ from random import randint as rand
 grid_fuel = np.zeros((50,50))
 grid_burn_chance = np.zeros((50,50))
 BURN_THRESHOLD = 4
-WIND_DIR = 5
+WIND_DIRECTION = 6
 WIND_SPEED = 10
+BASE_IGNITION_RATE = 1
 
 def transition_func(grid, neighbourstates, neighbourcounts):
     # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
@@ -30,16 +31,31 @@ def transition_func(grid, neighbourstates, neighbourcounts):
     #print(neighbourstates[1][1])
     chaparral_neighbours, dense_forest_neighbours, canyon_neighbours, lake_neighbours, burning_neighbours, dead_neighbours = neighbourcounts
     live_neighbours = chaparral_neighbours + dense_forest_neighbours + canyon_neighbours + lake_neighbours
-    wind_speed(grid_burn_chance, neighbourstates)
+    wind_speed(grid_burn_chance)
     burning = ((grid_burn_chance >= BURN_THRESHOLD) & (burning_neighbours >= ignition(grid)))
     ## Set cells to 4 where cell is burning
     grid[burning] = 4
     grid = fuel_use(grid)
     return grid
 
-def wind_speed(grid_burn_chance, neighbourstates):
-    for i,val in enumerate(neighbourstates):
-        print(i, val)
+def wind_speed(grid_burn_chance):
+    WIND_DIRECTION_INDICES = {
+        0: [(-1,0), (-1,1), (0,1)],
+        1: [(-1,1), (0,1), (1,1)],
+        2: [(0,1), (1,1), (1,0)],
+        3: [(-1,1), (-1,0), (-1,-1)],
+
+        4: [(1,1), (1,0), (1,-1)],
+        5: [(-1,0), (-1,-1), (0,-1)],
+        6: [(-1,-1), (0,-1), (1,-1)],
+        7: [(1,0), (1,-1), (0,-1)]
+    }
+    for row in range(len(grid_burn_chance)):
+        for cell in range(row):
+            for (x,y) in WIND_DIRECTION_INDICES[WIND_DIRECTION]:
+                grid_burn_chance[y][x] += WIND_SPEED * BASE_IGNITION_RATE
+                 
+
 
 def ignition(grid):
     # Chaparral catches fire easily
@@ -56,7 +72,6 @@ def ignition(grid):
            5: 9  # will not catch fire
            }   
     return np.vectorize(MIN_NEIGHBORS.get)(grid)
-    
 
 def fuel_use(grid):
     global grid_fuel
