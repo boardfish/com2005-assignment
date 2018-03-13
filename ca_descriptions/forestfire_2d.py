@@ -129,10 +129,16 @@ def setup(args):
     grid_terrain[30:40, 15:25] = 1
     grid_terrain[5:35, 32:35] = 2
     grid_terrain[10:15, 5:15] = 3
-    # Ignite ground at incinerator
-    # grid_terrain[0, 49] = 4
-    # Ignite ground at power plant
-    grid_terrain[0, 0] = 4
+    # Scenarios 1-5: Ignite ground at incinerator
+    grid_terrain[0, 49] = 4
+    # Scenario 1: Ignite ground at power plant
+    # grid_terrain[0, 0] = 4
+    # Scenario 2: aerial drop of water
+    # grid_terrain[1:11, 39:49] = 3
+    # Scenario 3: extend forest to left
+    # grid_terrain[30:40, 5:25] = 1
+    # Scenario 3: extend forest upward
+    # grid_terrain[20:40, 15:25] = 1
 
     config.set_initial_grid(grid_terrain)
     d1, d2 = config.grid_dims
