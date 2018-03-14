@@ -91,6 +91,107 @@ Average time taken: **16.33 hrs**
 
 Average time taken: **20.07 hrs**
 
+## Scenario 2
+
+Wind speed used: 60 km/h
+No Fire means the fire burnt out before reaching the town
+
+### North-West
+
+| Trial no. | Generations | Time (hours) |
+|-----------|-------------|--------------|
+| 1         | 75          | 225          |
+| 2         | 73          | 219          |
+| 3         | 74          | 222          |
+| 4         | 74          | 222          |
+| 5         | 72          | 216          |
+
+Average time taken: **220.8 hrs**
+
+### North
+
+| Trial no. | Generations | Time (hours) |
+|-----------|-------------|--------------|
+| 1         | 246         | 738          |
+| 2         | 223         | 669          |
+| 3         | 236         | 708          |
+| 4         | No Fire     | No Fire      |
+| 5         | 235         | 705          |
+
+Average time taken: **705 hrs**
+
+### North-East
+
+| Trial no. | Generations | Time (hours) |
+|-----------|-------------|--------------|
+| 1         | No Fire     | No Fire      |
+| 2         | 303         | 909          |
+| 3         | 294         | 882          |
+| 4         | No Fire     | No Fire      |
+| 5         | No Fire     | No Fire      |
+
+Average time taken: **895.5 hrs**
+
+### West
+
+| Trial no. | Generations | Time (hours) |
+|-----------|-------------|--------------|
+| 1         | 68          | 204          |
+| 2         | 71          | 213          |
+| 3         | 70          | 210          |
+| 4         | 67          | 201          |
+| 5         | 73          | 219          |
+
+Average time taken: **209.4 hrs**
+
+### East
+
+| Trial no. | Generations | Time (hours) |
+|-----------|-------------|--------------|
+| 1         | 249         | 747          |
+| 2         | 247         | 741          |
+| 3         | 253         | 759          |
+| 4         | No Fire     | No Fire      |
+| 5         | 231         | 693          |
+
+Average time taken: **735 hrs**
+
+### South-West
+
+| Trial no. | Generations | Time (hours) |
+|-----------|-------------|--------------|
+| 1         | 57          | 171          |
+| 2         | 59          | 177          |
+| 3         | 54          | 162          |
+| 4         | 61          | 183          |
+| 5         | 53          | 159          |
+
+Average time taken: **170.4 hrs**
+
+### South 
+
+| Trial no. | Generations | Time (hours) |
+|-----------|-------------|--------------|
+| 1         | 61          | 183          |
+| 2         | 63          | 189          |
+| 3         | 59          | 177          |
+| 4         | 61          | 183          |
+| 5         | 60          | 180          |
+
+Average time taken: **182.4 hrs**
+
+### South-East
+
+| Trial no. | Generations | Time (hours) |
+|-----------|-------------|--------------|
+| 1         | 71          | 213          |
+| 2         | 75          | 225          |
+| 3         | 71          | 213          |
+| 4         | 73          | 219          |
+| 5         | 74          | 222          |
+
+Average time taken: **218.4 hrs**
+
 ## Scenario 4
 
 ### North
