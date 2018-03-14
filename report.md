@@ -47,8 +47,78 @@ The `WIND_SPEED` in km/h and `WIND_DIRECTION` are defined as constants before th
 
 # Results
 
+**NB:** Outlier results in which a fire starts at either location but does not spread have been omitted.
+
+## Scenario 1
+
+### From the power plant
+
+| Trial no. | Generations | Time (hours) |
+|-----------|-------------|--------------|
+| 1         | 49          | 16.33        |
+| 2         | 49          | 16.33        |
+| 3         | 50          | 16.67        |
+| 4         | 48          | 16           |
+| 5         | 49          | 16.33        |
+
+Average time taken: **16.33 hrs**
+
+### From the incinerator
+
+| Trial no. | Generations | Time (hours) |
+|-----------|-------------|--------------|
+| 1         | 61          | 20.33        |
+| 2         | 63          | 21           |
+| 3         | 56          | 18.67        |
+| 4         | 59          | 19.67        |
+| 5         | 62          | 20.67        |
+
+Average time taken: **20.07 hrs**
+
+## Scenario 4
+
+### North
+
+| Trial no. | Generations | Time (hours) |
+|-----------|-------------|--------------|
+| 1         | 69          | 23           |
+| 2         | 68          | 22.67        |
+| 3         | 68          | 22.67        |
+| 4         | 67          | 22.33        |
+| 5         | 66          | 22           |
+
+Average time taken: **22.53 hrs**
+
+### West
+
+| Trial no. | Generations | Time (hours) |
+|-----------|-------------|--------------|
+| 1         | 69          | 23           |
+| 2         | 66          | 22           |
+| 3         | 68          | 22.67        |
+| 4         | 64          | 21.33        |
+| 5         | 65          | 21.67        |
+
+Average time taken: **22.13 hrs**
+
 # Discussion
 
+## Scenario 1
+
+The construction of the proposed incinerator should pose no further risk to the town than already exists, at least in terms of the time taken for a fire to reach it. On average, fires at the incinerator take around four (up to five) hours longer to reach the town than those at the power plant. In the event that the incinerator could go on to replace the power plant as the town's power source, those additional four hours could buy rescue services vital time to concert a rescue effort.
+
+## Scenario 4
+
+There is little variety no matter the choice - in the given trials, fire seems to spread at similar rates, though it appears to spread marginally more quickly when the forest area is extended towards the west. While the difference between the two options is of minimal significance, the recommendation seems to be to extend the forest towards the north.
+
 # Conclusions
+
+The conclusions for each scenario have been addressed in the discussion section of the report, but a short summary is as follows:
+
+1. The construction of the proposed incinerator should pose no further risk to the town than already exists, at least in terms of the time taken for a fire to reach it.
+2. \<TODO>
+3. \<TODO>
+4. The recommendation seems to be to extend the forest towards the north, though neither option carries much benefit, only buying rescue services around two hours on average.
+
 
 # References
