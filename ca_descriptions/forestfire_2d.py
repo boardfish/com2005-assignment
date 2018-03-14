@@ -1,4 +1,4 @@
-# Name: Conway's game of life
+# Name: Forest Fire Simulation
 # Dimensions: 2
 
 # --- Set up executable path, do not edit ---
@@ -17,14 +17,15 @@ import capyle.utils as utils
 import numpy as np
 from random import randint as rand
 
-# Initialise fuel grid
+# Initialise grids
 grid_fuel = np.zeros((50, 50))
 grid_burn_chance = np.zeros((50, 50))
 grid_terrain = np.zeros((50, 50))
-BURN_THRESHOLD = 8
-WIND_SPEED = 60
-BASE_IGNITION_RATE = 1.5
 
+# Constant for when a cell should ignite
+BURN_THRESHOLD = 8
+
+# Constants for terrain types and status types
 CHAPARRAL = 0
 DENSE_FOREST = 1
 CANYON = 2
@@ -32,6 +33,7 @@ LAKE = 3
 BURNING = 4
 DEAD = 5
 
+# Constants for wind directions
 NORTHWEST = 0
 NORTH = 1
 NORTHEAST = 2
@@ -41,8 +43,10 @@ SOUTHWEST = 5
 SOUTH = 6
 SOUTHEAST = 7
 
+# Constants for managing wind
 WIND_DIRECTION = SOUTH
-
+WIND_SPEED = 60
+BASE_IGNITION_RATE = 1.5
 
 def transition_func(grid, neighbourstates, neighbourcounts):
     # 0 (chaparral), 1 (dense forest), 2 (canyon), 3 (lake), 4 (burning), 5 (dead)
@@ -71,21 +75,25 @@ def wind(grid_burn_chance, grid):
         SOUTH: [(1, -1), (1, 0), (1, 1)],
         SOUTHEAST: [(0, 1), (1, 1), (1, 0)]
     }
+    # Loop over the burn chances to apply wind
     for row in range(len(grid_burn_chance)):
         for cell in range(row):
+            # Apply the changes for each direction and only if the cell is currently burning
             for (y, x) in WIND_DIRECTION_INDICES[WIND_DIRECTION]:
                 if grid[row][cell] == BURNING:
+                    # Work out if the changes would be applied out of range
                     y_boundary = (
                         (row+y) > (len(grid_burn_chance)-1)) or ((row+y) < 0)
                     x_boundary = (
                         (cell+x) > (len(grid_burn_chance)-1)) or ((cell+x) < 0)
+                    # If the changes are not out of range, apply the adjustment due to wind by 
+                    # adding to the burn chance
                     if not (y_boundary or x_boundary):
                         grid_burn_chance[row+y][cell +
                                                 x] += WIND_SPEED * BASE_IGNITION_RATE / 10
+            # Using the same method reduce the burn chance of cells in the opposite direction to the wind
             for (y, x) in WIND_DIRECTION_INDICES[abs(WIND_DIRECTION - 7)]:
                 if grid[row][cell] == BURNING:
-                    #y_boundary = row+y >= len(grid_burn_chance)-1
-                    #x_boundary = cell+x >= row-1
                     y_boundary = (
                         (row+y) > (len(grid_burn_chance)-1)) or ((row+y) < 0)
                     x_boundary = (
@@ -118,8 +126,6 @@ def fuel_use(grid):
     grid_fuel[(grid == BURNING)] -= 1
     # if it's burning and 0, it's dead
     grid[(grid == BURNING) & (grid_fuel <= 0)] = DEAD
-    # if it's burning and -1, it's burning and has 10
-    #grid_fuel[((grid == 4) & (grid_fuel == -1))] = 10
     return grid
 
 
@@ -181,7 +187,7 @@ def setup(args):
         DENSE_FOREST: 224,
         CANYON: 5,
         LAKE: 0,  # will not catch fire
-        BURNING: 0,
+        BURNING: 0, # will not catch fire (is already on fire)
         DEAD: 0  # will not catch fire
     }
     global grid_fuel
