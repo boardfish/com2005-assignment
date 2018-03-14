@@ -22,7 +22,6 @@ grid_fuel = np.zeros((50, 50))
 grid_burn_chance = np.zeros((50, 50))
 grid_terrain = np.zeros((50, 50))
 BURN_THRESHOLD = 8
-WIND_DIRECTION = 6
 WIND_SPEED = 60
 BASE_IGNITION_RATE = 1.5
 
@@ -32,6 +31,17 @@ CANYON = 2
 LAKE = 3
 BURNING = 4
 DEAD = 5
+
+NORTHWEST = 0
+NORTH = 1
+NORTHEAST = 2
+WEST = 3
+EAST = 4
+SOUTHWEST = 5
+SOUTH = 6
+SOUTHEAST = 7
+
+WIND_DIRECTION = SOUTH
 
 
 def transition_func(grid, neighbourstates, neighbourcounts):
@@ -51,15 +61,15 @@ def transition_func(grid, neighbourstates, neighbourcounts):
 
 def wind(grid_burn_chance, grid):
     WIND_DIRECTION_INDICES = {
-        0: [(-1, 0), (-1, -1), (0, -1)],
-        1: [(-1, -1), (-1, 0), (-1, 1)],
-        2: [(-1, 0), (-1, 1), (0, 1)],
-        3: [(-1, -1), (0, -1), (1, -1)],
+        NORTHWEST: [(-1, 0), (-1, -1), (0, -1)],
+        NORTH: [(-1, -1), (-1, 0), (-1, 1)],
+        NORTHEAST: [(-1, 0), (-1, 1), (0, 1)],
+        WEST: [(-1, -1), (0, -1), (1, -1)],
 
-        4: [(-1, 1), (0, 1), (1, 1)],
-        5: [(0, -1), (1, -1), (1, 0)],
-        6: [(1, -1), (1, 0), (1, 1)],
-        7: [(0, 1), (1, 1), (1, 0)]
+        EAST: [(-1, 1), (0, 1), (1, 1)],
+        SOUTHWEST: [(0, -1), (1, -1), (1, 0)],
+        SOUTH: [(1, -1), (1, 0), (1, 1)],
+        SOUTHEAST: [(0, 1), (1, 1), (1, 0)]
     }
     for row in range(len(grid_burn_chance)):
         for cell in range(row):
