@@ -194,7 +194,7 @@ Average time taken: **24.2 hrs**
 
 ## Scenario 3
 
-### Dropped over dense forest – (15, 20) 
+### Dropped over dense forest - (15, 20)
 
 | Trial no. | Generations | Time (hours) |
 |-----------|-------------|--------------|
@@ -206,7 +206,7 @@ Average time taken: **24.2 hrs**
 
 Average time taken: **20.07 hrs**
 
-### Dropped over top of canyon containing scrubland – (30, 45)
+### Dropped over top of canyon containing scrubland - (30, 45)
 
 | Trial no. | Generations | Time (hours) |
 |-----------|-------------|--------------|
@@ -219,7 +219,7 @@ Average time taken: **20.07 hrs**
 Average time taken: **21.13 hrs**
 
 
-### Close to the incinerator – (48, 48)
+### Close to the incinerator - (48, 48)
 
 | Trial no. | Generations | Time (hours) |
 |-----------|-------------|--------------|
@@ -231,18 +231,18 @@ Average time taken: **21.13 hrs**
 
 Average time taken: **22.39 hrs**
 
-### Close to town – (2, 39)
+### Close to town - (2, 39)
 
 | Trial no. | Generations | Time (hours) |
 |-----------|-------------|--------------|
 | 1         | 65          |21.66         |
 | 2         | No Fire     |No Fire       |
-| 3         | 62          |20.67          |
+| 3         | 62          |20.67         |
 | 4         | No Fire     |No Fire       |
 | 5         | 65          |21.66         |
 
 Average time taken: **21.33 hrs**
-**With chance of fire never reaching town**
+**With chance of fire never reaching the town**
 
 ## Scenario 4
 
