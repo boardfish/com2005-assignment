@@ -63,7 +63,7 @@ The `WIND_SPEED` in km/h and `WIND_DIRECTION` are defined as constants before th
 
 # Results
 
-**NB:** Outlier results in which a fire starts at either location but does not spread have been omitted.
+**NB:** For this scenario, outlier results in which a fire starts at either location but does not spread have been omitted.
 
 ## Scenario 1
 
@@ -278,13 +278,11 @@ The construction of the proposed incinerator should pose no further risk to the 
 
 ## Scenario 2
 
-The effect of wind direction on the spread time of a fire can be seen in the tables above, the main two effects, are when the wind is moving directly towards the town from the incinerator, and when it is moving towards the incinerator from the town, the delta between average time-to-burn on these two directions is 80.6 hours, with some samples not even reaching the town with the wind moving against the direction. Similar effects can be seen on other directions, e.g. slower burn on North and East, faster burns on South and West, but the effect is most prominent on North-East vs South-West. These results indicate that wind is a major factor in the danger of these fires, as there can be over 3 days difference in how long the fire can take to reach the town from point of ignition.
-
+The effect of wind direction on the spread time of a fire can be seen in the tables above. This is particularly distinct when the wind is moving directly towards the town from the incinerator and vice-versa. The delta between average time-to-burn on these two directions is 80.6 hours, with some samples not even reaching the town with the wind moving against the fire. Similar effects can be seen on other directions, for instance the slower burn on North and East, faster burns on South and West. However, the effect is most prominent on North-East vs South-West. These results support the observation that wind is a major factor in the speed of these fires, as there can be over 3 days' difference in how long the fire can take to reach the town from point of ignition.
 
 ## Scenario 3
 
-Water dropped over the dense forest had no effect on time taken for the fire to spread to town and would therefore be ineffective. To reliably delay the fire from reaching the town, water should be dropped close to the incinerator. This would on average delay the fire by 2 hours. Water dropped close the town, had a 40% chance of preventing the fire reaching the town. However, if not prevented, it would only delay the fire on average by an hour. The best place to drop would depend on priorities. If the town is full evacuated, dropping close to town may be the best option. Others, an extra hour evacuation time on average may be useful if lives are in danger.
-
+Water dropped over the dense forest had no effect on time taken for the fire to spread to town and would therefore be ineffective. To reliably delay the fire from reaching the town, water should be dropped close to the incinerator. This would on average delay the fire by 2 hours. Water dropped close to the town had a 40% chance of preventing the fire reaching the town. However, if not prevented, it would only delay the fire on average by an hour. The best place to drop would depend on priorities. If the town is fully evacuated, dropping close to town may be the best option. Otherwise, an extra hour's evacuation time on average may be useful if lives are in danger.
 
 ## Scenario 4
 
@@ -295,14 +293,17 @@ There is little variety no matter the choice - in the given trials, fire seems t
 In the Cellular Automata, each cell represents a physical space with certain parameters the define it. Each cell has a fuel level, which differentiates this model from the Moroccan forest fire study. This fuel level enabled us to model the flammability of different terrains. This was significantly more important in this investigation as the flammability of terrain various widely.  The Moroccan forest fire study is similar in fact it takes wind direction and wind speed into account when determining if a certain cell will catch fire. But differs again in the fact that our investigation didn’t take humidity into account.
 Like the University of Exeter sewer simulations, our investigation involved identifying the variables that had the most significant effect on state the environment. In the sewer simulation case, it was the depth of manhole and current level of water. Other factor such as temperature or acidity, were not implement here. Similarly, fuel, wind and burn rate were the most significant factors for this simulation. And therefore not all factors could implemented. This reduced the accuracy of the model but makes it sufficiently accurate to predict reasonable outcomes in real time.
 
+# Model 
+
+Further progress could be made on the model if funds became available, through the addition of features to simulate events and environment details which may affect the way a fire will spread, examples of the kinds of features which could be added, are things like weather, e.g. rain, which could be further improved by simulating "wetness" of potential fuel which will counter the chance of something igniting. Other features which could be added are the ideas of plant regrowth, the effect of seasons etc. 
+
 # Conclusions
 
 The conclusions for each scenario have been addressed in the discussion section of the report, but a short summary is as follows:
 
 1. The construction of the proposed incinerator should pose no further risk to the town than already exists, at least in terms of the time taken for a fire to reach it.
-2. \<TODO>
-3. \<TODO>
+2. Wind is a major factor in the speed of forest fires, as there can be over 3 days' difference in how long the fire can take to reach the town from point of ignition.
+3. To reliably delay the fire from reaching the town, water should be dropped close to the incinerator, though a drop point should be chosen based on whether or not the town has been evacuated.
 4. The recommendation seems to be to extend the forest towards the north, though neither option carries much benefit, only buying rescue services around two hours on average.
-
 
 # References
