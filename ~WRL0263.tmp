@@ -47,9 +47,9 @@ Table: Parameters for each type of land, based on what was provided in the speci
 
 We also needed to modify the basic algorithm of Conway's Game of Life to better reflect the spread of fire. The first stage in the process was to add some sort of persistence. This required us to allocate a certain amount of fuel to each starting cell based on the type of land - this takes place on a secondary grid that is not rendered, a calculation layer. The fuel allocated to each cell is depleted once per cycle (equivalent to a couple of days) at a constant rate, and represents how long the land is assumed to burn for.
 
-Flammability was then represented by a threshold, which was based on the number of ignited neighbouring cells in all cardinal directions. Land that ignites easily may only need one or two neighbouring ignited cells to catch fire, but other land types could need more of that type to ignite.
+Flammabiility was then represented by a threshold, which was based on the number of ignited neighbouring cells in all cardinal directions. Land that ignites easily may only need one or two neighbouring ignited cells to catch fire, but other land types could need more of that type to ignite.
 
-Wind was the last aspect to be implemented. This added another calculation layer that used another of our assumptions - the chance of a cell catching fire is weighted based on the wind direction and proportionally to the square root of its speed. It was most important to ensure that simulations were accurate for the prevailing wind direction (south), but that the calculations could also be accurately applicable to any wind direction. In the code, the directions are represented as follows:
+Wind was the last aspect to be implemented. This added another calculation layer that used another of our assumptions - the chance of a cell catching fire is weighted based on the wind direction and and proportionally to the square root of its speed. It was most important to ensure that simulations were accurate for the prevailing wind direction (south), but that the calculations could also be accurately applicable to any wind direction. In the code, the directions are represented as follows:
 
 ------- ------- -------
    0       1       2
@@ -192,58 +192,6 @@ Average time taken: **20.2 hrs**
 
 Average time taken: **24.2 hrs**
 
-## Scenario 3
-
-### Dropped over dense forest – (15, 20) 
-
-| Trial no. | Generations | Time (hours) |
-|-----------|-------------|--------------|
-| 1         | 62          |20.67         |
-| 2         | 60          |20.00         |
-| 3         | 58          |19.33         |
-| 4         | 59          |19.67         |
-| 5         | 62          |20.67         |
-
-Average time taken: **20.07 hrs**
-
-### Dropped over top of canyon containing scrubland – (30, 45)
-
-| Trial no. | Generations | Time (hours) |
-|-----------|-------------|--------------|
-| 1         | 63          |21            |
-| 2         | 60          |20            |
-| 3         | 65          |21.67         |
-| 4         | 64          |21.33         |
-| 5         | 62          |20.67         |
-
-Average time taken: **21.13 hrs**
-
-
-### Close to the incinerator – (48, 48)
-
-| Trial no. | Generations | Time (hours) |
-|-----------|-------------|--------------|
-| 1         | 67          |22.33         |
-| 2         | 68          |22.67         |
-| 3         | 66          |22            |
-| 4         | 67          |22.33         |
-| 5         | 68          |22.67         |
-
-Average time taken: **22.39 hrs**
-
-### Close to town – (2, 39)
-
-| Trial no. | Generations | Time (hours) |
-|-----------|-------------|--------------|
-| 1         | 65          |21.66         |
-| 2         | No Fire     |No Fire       |
-| 3         | 62          |20.67          |
-| 4         | No Fire     |No Fire       |
-| 5         | 65          |21.66         |
-
-Average time taken: **21.33 hrs**
-**With chance of fire never reaching town**
-
 ## Scenario 4
 
 ### North
@@ -278,10 +226,6 @@ The construction of the proposed incinerator should pose no further risk to the 
 
 ## Scenario 2
 
-
-## Scenario 3
-
-Water dropped over the dense forest had no effect on time taken for the fire to spread to town and would therefore be ineffective. To reliably delay the fire from reaching the town, water should be dropped close to the incinerator. This would on average delay the fire by 2 hours. Water dropped close the town, had a 40% chance of preventing the fire reaching the town. However, if not prevented, it would only delay the fire on average by an hour. The best place to drop would depend on priorities. If the town is full evacuated, dropping close to town may be the best option. Others, an extra hour evacuation time on average may be useful if lives are in danger.
 
 
 ## Scenario 4
