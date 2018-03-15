@@ -293,9 +293,8 @@ There is little variety no matter the choice - in the given trials, fire seems t
 The conclusions for each scenario have been addressed in the discussion section of the report, but a short summary is as follows:
 
 1. The construction of the proposed incinerator should pose no further risk to the town than already exists, at least in terms of the time taken for a fire to reach it.
-2. \<TODO>
-3. \<TODO>
+2. Wind is a major factor in the speed of forest fires, as there can be over 3 days' difference in how long the fire can take to reach the town from point of ignition.
+3. To reliably delay the fire from reaching the town, water should be dropped close to the incinerator, though a drop point should be chosen based on whether or not the town has been evacuated.
 4. The recommendation seems to be to extend the forest towards the north, though neither option carries much benefit, only buying rescue services around two hours on average.
-
 
 # References
