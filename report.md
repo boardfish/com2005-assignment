@@ -278,13 +278,11 @@ The construction of the proposed incinerator should pose no further risk to the 
 
 ## Scenario 2
 
-The effect of wind direction on the spread time of a fire can be seen in the tables above, the main two effects, are when the wind is moving directly towards the town from the incinerator, and when it is moving towards the incinerator from the town, the delta between average time-to-burn on these two directions is 80.6 hours, with some samples not even reaching the town with the wind moving against the direction. Similar effects can be seen on other directions, e.g. slower burn on North and East, faster burns on South and West, but the effect is most prominent on North-East vs South-West. These results indicate that wind is a major factor in the danger of these fires, as there can be over 3 days difference in how long the fire can take to reach the town from point of ignition.
-
+The effect of wind direction on the spread time of a fire can be seen in the tables above. This is particularly distinct when the wind is moving directly towards the town from the incinerator and vice-versa. The delta between average time-to-burn on these two directions is 80.6 hours, with some samples not even reaching the town with the wind moving against the fire. Similar effects can be seen on other directions, for instance the slower burn on North and East, faster burns on South and West. However, the effect is most prominent on North-East vs South-West. These results support the observation that wind is a major factor in the speed of these fires, as there can be over 3 days' difference in how long the fire can take to reach the town from point of ignition.
 
 ## Scenario 3
 
-Water dropped over the dense forest had no effect on time taken for the fire to spread to town and would therefore be ineffective. To reliably delay the fire from reaching the town, water should be dropped close to the incinerator. This would on average delay the fire by 2 hours. Water dropped close the town, had a 40% chance of preventing the fire reaching the town. However, if not prevented, it would only delay the fire on average by an hour. The best place to drop would depend on priorities. If the town is full evacuated, dropping close to town may be the best option. Others, an extra hour evacuation time on average may be useful if lives are in danger.
-
+Water dropped over the dense forest had no effect on time taken for the fire to spread to town and would therefore be ineffective. To reliably delay the fire from reaching the town, water should be dropped close to the incinerator. This would on average delay the fire by 2 hours. Water dropped close to the town had a 40% chance of preventing the fire reaching the town. However, if not prevented, it would only delay the fire on average by an hour. The best place to drop would depend on priorities. If the town is fully evacuated, dropping close to town may be the best option. Otherwise, an extra hour's evacuation time on average may be useful if lives are in danger.
 
 ## Scenario 4
 
