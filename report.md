@@ -290,6 +290,11 @@ Water dropped over the dense forest had no effect on time taken for the fire to 
 
 There is little variety no matter the choice - in the given trials, fire seems to spread at similar rates, though it appears to spread marginally more quickly when the forest area is extended towards the west. While the difference between the two options is of minimal significance, the recommendation seems to be to extend the forest towards the north.
 
+## How the model compares to existing journal articles on CA-Based models?
+
+In the Cellular Automata, each cell represents a physical space with certain parameters the define it. Each cell has a fuel level, which differentiates this model from the Moroccan forest fire study. This fuel level enabled us to model the flammability of different terrains. This was significantly more important in this investigation as the flammability of terrain various widely.  The Moroccan forest fire study is similar in fact it takes wind direction and wind speed into account when determining if a certain cell will catch fire. But differs again in the fact that our investigation didn’t take humidity into account.
+Like the University of Exeter sewer simulations, our investigation involved identifying the variables that had the most significant effect on state the environment. In the sewer simulation case, it was the depth of manhole and current level of water. Other factor such as temperature or acidity, were not implement here. Similarly, fuel, wind and burn rate were the most significant factors for this simulation. And therefore not all factors could implemented. This reduced the accuracy of the model but makes it sufficiently accurate to predict reasonable outcomes in real time.
+
 # Conclusions
 
 The conclusions for each scenario have been addressed in the discussion section of the report, but a short summary is as follows:
