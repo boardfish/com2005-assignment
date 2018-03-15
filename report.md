@@ -63,7 +63,7 @@ The `WIND_SPEED` in km/h and `WIND_DIRECTION` are defined as constants before th
 
 # Results
 
-**NB:** Outlier results in which a fire starts at either location but does not spread have been omitted.
+**NB:** For this scenario, outlier results in which a fire starts at either location but does not spread have been omitted.
 
 ## Scenario 1
 
