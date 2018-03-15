@@ -288,6 +288,11 @@ Water dropped over the dense forest had no effect on time taken for the fire to 
 
 There is little variety no matter the choice - in the given trials, fire seems to spread at similar rates, though it appears to spread marginally more quickly when the forest area is extended towards the west. While the difference between the two options is of minimal significance, the recommendation seems to be to extend the forest towards the north.
 
+# Model 
+
+Further progress could be made on the model if funds became available, through the addition of features to simulate events and enviroment details which may effect the way a fire will spread, examples of the kinds of features which could be added, are things like weather, e.g rain, which could be further improved by simulating "wetness" of potential fuel which will counter the chance of something igniting. Other features which could be added are the ideas of plant regrowth, the effect of seasons etc. 
+
+
 # Conclusions
 
 The conclusions for each scenario have been addressed in the discussion section of the report, but a short summary is as follows:
