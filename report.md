@@ -93,104 +93,104 @@ Average time taken: **20.07 hrs**
 
 ## Scenario 2
 
-Wind speed used: 60 km/h
+Wind speed used: 60
 No Fire means the fire burnt out before reaching the town
 
 ### North-West
 
 | Trial no. | Generations | Time (hours) |
 |-----------|-------------|--------------|
-| 1         | 75          | 225          |
-| 2         | 73          | 219          |
-| 3         | 74          | 222          |
-| 4         | 74          | 222          |
-| 5         | 72          | 216          |
+| 1         | 75          | 25           |
+| 2         | 73          | 24.3         |
+| 3         | 74          | 24.6         |
+| 4         | 74          | 24.6         |
+| 5         | 72          | 24           |
 
-Average time taken: **220.8 hrs**
+Average time taken: **24.5 hrs**
 
 ### North
 
 | Trial no. | Generations | Time (hours) |
 |-----------|-------------|--------------|
-| 1         | 246         | 738          |
-| 2         | 223         | 669          |
-| 3         | 236         | 708          |
+| 1         | 246         | 82           |
+| 2         | 223         | 74.3         |
+| 3         | 236         | 78.6         |
 | 4         | No Fire     | No Fire      |
-| 5         | 235         | 705          |
+| 5         | 235         | 78.3         |
 
-Average time taken: **705 hrs**
+Average time taken: **78.3 hrs**
 
 ### North-East
 
 | Trial no. | Generations | Time (hours) |
 |-----------|-------------|--------------|
 | 1         | No Fire     | No Fire      |
-| 2         | 303         | 909          |
-| 3         | 294         | 882          |
+| 2         | 303         | 101          |
+| 3         | 294         | 98           |
 | 4         | No Fire     | No Fire      |
 | 5         | No Fire     | No Fire      |
 
-Average time taken: **895.5 hrs**
+Average time taken: **99.5 hrs**
 
 ### West
 
 | Trial no. | Generations | Time (hours) |
 |-----------|-------------|--------------|
-| 1         | 68          | 204          |
-| 2         | 71          | 213          |
-| 3         | 70          | 210          |
-| 4         | 67          | 201          |
-| 5         | 73          | 219          |
+| 1         | 68          | 22.6         |
+| 2         | 71          | 23.6         |
+| 3         | 70          | 23.3         |
+| 4         | 67          | 22.3         |
+| 5         | 73          | 24.3         |
 
-Average time taken: **209.4 hrs**
+Average time taken: **23.2 hrs**
 
 ### East
 
 | Trial no. | Generations | Time (hours) |
 |-----------|-------------|--------------|
-| 1         | 249         | 747          |
-| 2         | 247         | 741          |
-| 3         | 253         | 759          |
+| 1         | 249         | 83           |
+| 2         | 247         | 82.3         |
+| 3         | 253         | 84.3         |
 | 4         | No Fire     | No Fire      |
-| 5         | 231         | 693          |
+| 5         | 231         | 77           |
 
-Average time taken: **735 hrs**
+Average time taken: **81.7 hrs**
 
 ### South-West
 
 | Trial no. | Generations | Time (hours) |
 |-----------|-------------|--------------|
-| 1         | 57          | 171          |
-| 2         | 59          | 177          |
-| 3         | 54          | 162          |
-| 4         | 61          | 183          |
-| 5         | 53          | 159          |
+| 1         | 57          | 19           |
+| 2         | 59          | 19.6         |
+| 3         | 54          | 18           |
+| 4         | 61          | 20.3         |
+| 5         | 53          | 17.6         |
 
-Average time taken: **170.4 hrs**
+Average time taken: **18.9 hrs**
 
 ### South 
 
 | Trial no. | Generations | Time (hours) |
 |-----------|-------------|--------------|
-| 1         | 61          | 183          |
-| 2         | 63          | 189          |
-| 3         | 59          | 177          |
-| 4         | 61          | 183          |
-| 5         | 60          | 180          |
+| 1         | 61          | 20.3         |
+| 2         | 63          | 21           |
+| 3         | 59          | 19.6         |
+| 4         | 61          | 20.3         |
+| 5         | 60          | 20           |
 
-Average time taken: **182.4 hrs**
+Average time taken: **20.2 hrs**
 
 ### South-East
 
 | Trial no. | Generations | Time (hours) |
 |-----------|-------------|--------------|
-| 1         | 71          | 213          |
-| 2         | 75          | 225          |
-| 3         | 71          | 213          |
-| 4         | 73          | 219          |
-| 5         | 74          | 222          |
+| 1         | 71          | 23.6         |
+| 2         | 75          | 25           |
+| 3         | 71          | 23.6         |
+| 4         | 73          | 24.3         |
+| 5         | 74          | 24.6         |
 
-Average time taken: **218.4 hrs**
+Average time taken: **24.2 hrs**
 
 ## Scenario 4
 
@@ -223,6 +223,10 @@ Average time taken: **22.13 hrs**
 ## Scenario 1
 
 The construction of the proposed incinerator should pose no further risk to the town than already exists, at least in terms of the time taken for a fire to reach it. On average, fires at the incinerator take around four (up to five) hours longer to reach the town than those at the power plant. In the event that the incinerator could go on to replace the power plant as the town's power source, those additional four hours could buy rescue services vital time to concert a rescue effort.
+
+## Scenario 2
+
+
 
 ## Scenario 4
 
