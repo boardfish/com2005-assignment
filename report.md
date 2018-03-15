@@ -226,7 +226,7 @@ The construction of the proposed incinerator should pose no further risk to the 
 
 ## Scenario 2
 
-
+The effect of wind direction on the spread time of a fire can be seen in the tables above, the main two effects, are when the wind is moving directly towards the town from the incinerator, and when it is moving towards the incinerator from the town, the delta between average time-to-burn on these two directions is 80.6 hours, with some samples not even reaching the town with the wind moving against the direction. Similar effects can be seen on other directions, e.g slower burn on North and East, faster burns on South and West, but the effect is most prominent on North-East vs South-West. These results indicate that wind is a major factor in the danger of these fires, as there can be over 3 days difference in how long the fire can take to reach the town from point of ignition.
 
 ## Scenario 4
 
